@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "14ffe98b-bd6f-4f09-977a-e0a37f529b98",
+		"name": "CAE Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8248329"
+	},
+	"item": [
+		{
+			"name": "Upload Roaster File",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "Allowed MIME : pdf, xlsx, csv, html | Max SIze : 5 MB",
+							"type": "file",
+							"src": "/E:/Work/CAE/Roster - CrewConnex.html"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/upload-file",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"upload-file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All FIles",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/files",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		}
+	]
+}
