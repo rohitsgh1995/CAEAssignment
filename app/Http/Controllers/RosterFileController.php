@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RoasterFile;
+use App\Events\FileUploaded;
 use App\Http\Requests\RosterFileRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -25,11 +26,13 @@ class RosterFileController extends Controller
             $filename = 'roaster-file-' . time() . '.' . $file->extension();
             $path = Storage::putFileAs('roaster_files', $file, $filename);
 
-            RoasterFile::create([
+            $roasterFile = RoasterFile::create([
                 'filename' => $filename,
                 'mime' => $file->extension(),
                 'path' => $path,
             ]);
+
+            event(new FileUploaded($roasterFile));
 
             return response()->json([
                 'status' => true,
