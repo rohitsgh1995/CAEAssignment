@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('to')->nullable();
             $table->time('sta')->nullable();
             $table->string('remarks')->nullable();
-            $table->decimal('blh', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('flight_time', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('night_time', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('duration', 8, 3)->nullable()->comment('in mins');
+            $table->string('blh')->nullable();
+            $table->string('flight_time')->nullable();
+            $table->string('night_time')->nullable();
+            $table->string('duration')->nullable();
             $table->string('ext')->nullable();
             $table->string('pax_booked')->nullable();
             $table->string('ac_reg')->nullable();
