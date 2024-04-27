@@ -16,10 +16,6 @@ return new class extends Migration
             $table->date('date');
             $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
-            $table->decimal('blh', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('flight_time', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('night_time', 8, 3)->nullable()->comment('in mins');
-            $table->decimal('duration', 8, 3)->nullable()->comment('in mins');
             $table->timestamps();
         });
     }

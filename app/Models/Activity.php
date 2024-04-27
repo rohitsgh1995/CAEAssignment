@@ -14,6 +14,7 @@ class Activity extends Model
         'activity',
         'code',
         'description',
+        'remark',
         'from',
         'std',
         'to',

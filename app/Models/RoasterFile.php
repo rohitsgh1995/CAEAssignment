@@ -20,12 +20,14 @@ class RoasterFile extends Model
     public function setProcessing()
     {
         $this->status = 'processing';
+        $this->error_message = null;
         $this->save();
     }
 
     public function setCompleted()
     {
         $this->status = 'completed';
+        $this->error_message = null;
         $this->save();
     }
 

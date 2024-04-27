@@ -12,10 +12,6 @@ class Roaster extends Model
     protected $fillable = [
         'date',
         'check_in',
-        'check_out',
-        'blh',
-        'flight_time',
-        'night_time',
-        'duration',
+        'check_out'
     ];
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('activity');
             $table->string('code');
             $table->string('description')->nullable();
+            $table->string('remark')->nullable();
             $table->string('from')->nullable();
             $table->time('std')->nullable();
             $table->string('to')->nullable();
