@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use App\Models\Roaster;
+use App\Models\Activity;
 use App\Models\RoasterFile;
 use App\Events\FileUploaded;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 class ExtractFileContents implements ShouldQueue
 {
     protected $roasterFileId;
+
+    protected $requiredCols = ['Date', 'Rev', 'DC', 'C/I(Z)', 'C/O(Z)', 'Activity', 'Remark', 'From', 'STD(Z)', 'To', 'STA(Z)', 'AC/Hotel', 'BLH', 'Flight Time', 'Night Time', 'Dur', 'Ext', 'Pax booked', 'ACReg'];
 
     public function __construct()
     {
@@ -44,21 +48,51 @@ class ExtractFileContents implements ShouldQueue
         try {
             $fileContents = Storage::disk('local')->get($filePath);
 
-            Log::info("file contents: $fileContents");
+            // Log::info("file contents: $fileContents");
 
             $crawler = new Crawler($fileContents);
 
             $tableId = 'ctl00_Main_activityGrid';
             $table = $crawler->filter("#$tableId")->first();
 
+            // Log::info("Table: " . $table->text());
+
             if ($table->count() > 0) {
-                $rows = $table->filter('tr')->each(function (Crawler $row) {
-                    return $row->text();
+
+                // table heads
+                $headerId = 'ctl00_Main_activityGrid_-1';
+                $headerRow = $table->filter("#$headerId")->first();
+                $headers = $headerRow->filter('td')->each(function (Crawler $head) {
+                    return $head->text();
                 });
 
-                foreach ($rows as $row) {
-                    echo $row . "\n";
+                // Log::info("All Headers: " . json_encode($headers));
+
+                $requiredHeaders = [];
+
+                foreach ($headers as $key => $head) {
+                    if (in_array($head, $this->requiredCols)) {
+                        $requiredHeaders[$key] = $head;
+                    }
                 }
+
+                // Log::info("Required Headers: " . json_encode($requiredHeaders));
+
+                //table rows
+                $rows = $table->filter('tr')->each(function (Crawler $row) use ($requiredHeaders) {
+                    $rowData = $row->filter('td')->each(function (Crawler $cell) {
+                        return $cell->text();
+                    });
+
+                    $data = [];
+                    foreach ($requiredHeaders as $key => $header) {
+                        $data[$header] = trim($rowData[$key]);
+                    }
+
+                    return $data;
+                });
+
+                Log::info("All Rows: " . json_encode($rows));
             } else {
                 $this->handleFailed("Table with ID '$tableId' not found.");
             }
@@ -67,7 +101,6 @@ class ExtractFileContents implements ShouldQueue
             $this->handleFailed("Error retrieving file: " . $exception->getMessage());
         }
     }
-
 
     public function failed(Throwable $exception)
     {
