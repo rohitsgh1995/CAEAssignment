@@ -11,7 +11,9 @@ class RoasterFile extends Model
 
     protected $fillable = [
         'filename',
-        'mime',
+        'extension',
         'path',
+        'status',
+        'error_message',
     ];
 }

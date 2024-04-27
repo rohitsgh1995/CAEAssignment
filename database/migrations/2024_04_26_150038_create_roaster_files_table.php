@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('roaster_files', function (Blueprint $table) {
             $table->id();
             $table->string('filename');
-            $table->string('mime');
+            $table->string('extension');
             $table->string('path');
+            $table->string('status')->default('pending')->comment('pending, processing, completed, failed');
+            $table->text('error_message')->nullable();
             $table->timestamps();
         });
     }

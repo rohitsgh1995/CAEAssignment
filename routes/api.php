@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('upload-file', [RosterFileController::class, 'uploadFile']);
-Route::get('files', [RosterFileController::class, 'getFiles']);
+Route::get('all-files', [RosterFileController::class, 'getAllFiles']);
+Route::get('file/{id}', [RosterFileController::class, 'getFileById']);

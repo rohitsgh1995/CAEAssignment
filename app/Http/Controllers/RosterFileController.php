@@ -28,7 +28,7 @@ class RosterFileController extends Controller
 
             $roasterFile = RoasterFile::create([
                 'filename' => $filename,
-                'mime' => $file->extension(),
+                'extension' => $file->extension(),
                 'path' => $path,
             ]);
 
@@ -46,7 +46,7 @@ class RosterFileController extends Controller
         }
     }
 
-    public function getFiles()
+    public function getAllFiles()
     {
         try {
             $files = RoasterFile::all();
@@ -59,6 +59,28 @@ class RosterFileController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'No roaster files found.',
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to retrieve roaster files.',
+            ], 500);
+        }
+    }
+
+    public function getFileById(int $id)
+    {
+        try {
+            $file = RoasterFile::findOrFail($id);
+
+            return response()->json([
+                'status' => true,
+                'data' => $file,
+            ], 200);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No roaster file found.',
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([
