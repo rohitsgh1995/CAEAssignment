@@ -15,15 +15,15 @@ class FileUploaded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $roasterFile;
+    public $roasterFileId;
 
     /**
      * Create a new event instance.
      */
 
-    public function __construct(RoasterFile $roasterFile)
+    public function __construct(int $roasterFileId)
     {
-        $this->roasterFile = $roasterFile;
+        $this->roasterFileId = $roasterFileId;
     }
 
     /**

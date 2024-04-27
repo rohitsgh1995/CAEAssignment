@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\RoasterFile;
 use App\Events\FileUploaded;
 use App\Http\Requests\RosterFileRequest;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -23,7 +24,9 @@ class RosterFileController extends Controller
 
             $file = $request->file('file');
 
-            $filename = 'roaster-file-' . time() . '.' . $file->extension();
+            $uuid = Str::uuid();
+
+            $filename = 'roaster-file-' . $uuid . '.' . $file->extension();
             $path = Storage::putFileAs('roaster_files', $file, $filename);
 
             $roasterFile = RoasterFile::create([
@@ -32,7 +35,7 @@ class RosterFileController extends Controller
                 'path' => $path,
             ]);
 
-            event(new FileUploaded($roasterFile));
+            event(new FileUploaded($roasterFile->id));
 
             return response()->json([
                 'status' => true,
