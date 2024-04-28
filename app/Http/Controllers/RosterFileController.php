@@ -23,10 +23,8 @@ class RosterFileController extends Controller
             }
 
             $file = $request->file('file');
-
-            $uuid = Str::uuid();
-
-            $filename = 'roaster-file-' . $uuid . '.' . $file->extension();
+            
+            $filename = $file->getClientOriginalName();
             $path = Storage::putFileAs('roaster_files', $file, $filename);
 
             $roasterFile = RoasterFile::create([
