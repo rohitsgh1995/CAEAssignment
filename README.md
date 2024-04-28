@@ -27,22 +27,32 @@
 ## Postman Setup
 
 1. **Using Postman**
-   - Import the provided Postman collection file from ./postman/CAEAssignment.postman_collection
+   - Import the provided Postman collection file located at:
+      ```
+      ./postman/CAEAssignment.postman_collection.json
+      ```
 
 ## Usage
 
 1. **Interacting with the API**
    - Explore the API endpoints for the CAE system.
 
-2. **Testing with Postman**
+2. **Start Queue before testing with Postman**
+   - Run:
+      ```bash
+      php artisan queue:work
+      ```
+
+3. **Testing with Postman**
    - Use the imported Postman collection to test the API endpoints.
 
-3. **Documentation**
-   - Refer to the documentation within Postman for guidance on using each endpoint.
-
-4. **Troubleshooting**
-   - If you run into any issues, check the documentation or contact the development team for help.
+4. **Test Cases**
+   - Run:
+      ```bash
+      php artisan test --testsuite=Feature --filter=APIEndPointsTest
+      ```
+   - It tests file upload, dispatched event, and all API endpoints.
 
 ## Conclusion
 
-The CAE Assignment API is ready for testing. Follow the instructions to get started. If you need assistance, feel free to reach out. Happy testing!
+The CAE Assignment API is ready for testing. Follow the instructions to get started. Happy testing!
