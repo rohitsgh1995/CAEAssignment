@@ -27,7 +27,7 @@
 					"formdata": [
 						{
 							"key": "file",
-							"description": "Allowed MIME : pdf, xlsx, csv, html | Max SIze : 5 MB",
+							"description": "Allowed MIME : html | Max SIze : 5 MB",
 							"type": "file",
 							"src": "/E:/Work/CAE/Roster - CrewConnex.html"
 						}
@@ -62,12 +62,195 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/files",
+					"raw": "{{base_url}}/all-files",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
-						"files"
+						"all-files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File by Id",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/file/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Events Between Dates",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/events?startDate=2022-01-10&endDate=2022-01-23",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2022-01-10",
+							"description": "Y-m-d"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-01-23",
+							"description": "Y-m-d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Next Week Flights",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/events/next-week?currentDate=2022-01-14&code=FLT",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"events",
+						"next-week"
+					],
+					"query": [
+						{
+							"key": "currentDate",
+							"value": "2022-01-14",
+							"description": "Y-m-d"
+						},
+						{
+							"key": "code",
+							"value": "FLT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Next Week StandBy",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/events/next-week?currentDate=2022-01-05&code=SBY",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"events",
+						"next-week"
+					],
+					"query": [
+						{
+							"key": "currentDate",
+							"value": "2022-01-05",
+							"description": "Y-m-d"
+						},
+						{
+							"key": "code",
+							"value": "SBY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flights by Location",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/flights?location=svg",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"flights"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "svg"
+						}
 					]
 				}
 			},
@@ -99,7 +282,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://127.0.0.1:8000/api",
+			"value": "http://127.0.0.1:8000/api/roaster",
 			"type": "string"
 		}
 	]
