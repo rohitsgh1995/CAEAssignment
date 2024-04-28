@@ -22,7 +22,7 @@ class RosterFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|mimes:pdf,xlsx,csv,html|max:5120',
+            'file' => 'required|file|mimes:html|max:5120',
         ];
     }
 
