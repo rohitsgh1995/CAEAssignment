@@ -14,4 +14,22 @@ class Roaster extends Model
         'check_in',
         'check_out'
     ];
+
+    public function activities($code = null)
+    {
+        if ($code) {
+            return $this->hasMany(Activity::class)->where('code', $code);
+        }
+
+        return $this->hasMany(Activity::class);
+    }
+
+    public function flights($location = null)
+    {
+        if ($location) {
+            return $this->hasMany(Activity::class)->where('code', 'FLT')->where('from', $location);
+        }
+
+        return $this->hasMany(Activity::class);
+    }
 }
